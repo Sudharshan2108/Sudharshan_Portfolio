@@ -40,7 +40,7 @@ const Computers = ({ isMobile }: ComputersProps) => {
 // Computer Canvas
 const ComputersCanvas = () => {
   // state to check mobile
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(true);
 
   // Check if device is Mobile
   useEffect(() => {
