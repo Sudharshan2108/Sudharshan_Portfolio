@@ -40,7 +40,7 @@ const Computers = ({ isMobile }: ComputersProps) => {
 // Computer Canvas
 const ComputersCanvas = () => {
   // state to check mobile
-  const [isMobile, setIsMobile] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Check if device is Mobile
   useEffect(() => {
@@ -62,11 +62,13 @@ const ComputersCanvas = () => {
 
   return (
     <Canvas
-      frameloop="demand"
-      shadows
-      camera={{ position: [20, 3, 5], fov: 25 }}
-      gl={{ preserveDrawingBuffer: true, alpha: true }}
-    >
+  style={{ width: '100vw', height: '100vh' }} // Set style for full viewport size
+  frameloop="demand"
+  shadows
+  camera={{ position: [20, 3, 5], fov: 25 }}
+  gl={{ preserveDrawingBuffer: true, alpha: true }}
+>
+
       {/* Canvas Loader show on fallback */}
       <Suspense fallback={<CanvasLoader />}>
         <OrbitControls
