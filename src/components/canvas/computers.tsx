@@ -44,7 +44,7 @@ const ComputersCanvas = () => {
 
   // Check if device is Mobile
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width: 500px)");
+    const mediaQuery = window.matchMedia("(max-width: 768px)"); // Adjust the max-width as needed for your design
 
     setIsMobile(mediaQuery.matches);
 
@@ -61,28 +61,29 @@ const ComputersCanvas = () => {
   }, []);
 
   return (
-    <Canvas
-  style={{ width: '100vw', height: '100vh' }} // Set style for full viewport size
-  frameloop="demand"
-  shadows
-  camera={{ position: [20, 3, 5], fov: 25 }}
-  gl={{ preserveDrawingBuffer: true, alpha: true }}
->
+    <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
+      <Canvas
+        style={{ position: 'absolute', top: 0, left: 0 }}
+        frameloop="demand"
+        shadows
+        camera={{ position: [20, 3, 5], fov: 25 }}
+        gl={{ preserveDrawingBuffer: true, alpha: true }}
+      >
+        {/* Canvas Loader show on fallback */}
+        <Suspense fallback={<CanvasLoader />}>
+          <OrbitControls
+            enableZoom={!isMobile} // Enable zoom only if not on mobile
+            maxPolarAngle={Math.PI / 2}
+            minPolarAngle={Math.PI / 2}
+          />
+          {/* Show Model */}
+          <Computers isMobile={isMobile} />
+        </Suspense>
 
-      {/* Canvas Loader show on fallback */}
-      <Suspense fallback={<CanvasLoader />}>
-        <OrbitControls
-          enableZoom={false}
-          maxPolarAngle={Math.PI / 2}
-          minPolarAngle={Math.PI / 2}
-        />
-        {/* Show Model */}
-        <Computers isMobile={isMobile} />
-      </Suspense>
-
-      {/* Preload all */}
-      <Preload all />
-    </Canvas>
+        {/* Preload all */}
+        <Preload all />
+      </Canvas>
+    </div>
   );
 };
 
